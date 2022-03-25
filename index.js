@@ -1,11 +1,13 @@
 import "./styles.css";
 
 fetch(
-  "https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=nature"
+  "https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=space"
 )
   .then((res) => res.json())
   .then((data) => {
-    document.getElementById("bg-author").textContent = `By: ${data.user.name}`;
+    document.getElementById(
+      "bg-author"
+    ).textContent = `background: ${data.user.name}`;
     document.body.style.backgroundImage = `url(${data.urls.small})`;
   })
   .catch((err) => {
@@ -62,14 +64,15 @@ navigator.geolocation.getCurrentPosition((position) => {
       return res.json();
     })
     .then((data) => {
-      const localWeather = data;
-      console.log(localWeather);
-      const wIcon = localWeather.weather[0].icon;
-      console.log(wIcon);
+      console.log(data.weather[0].icon);
+      const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
       document.getElementById("weather").innerHTML = `
-      <img src="http://openweathermap.org/img/wn/${wIcon}@2x.png" alt="weather"></img>
-       <p id="local-place">${localWeather.name}</p>
-       <p id="temperature">${Math.round(localWeather.main.temp)}&deg;F</p>
+       <div id="weather-top">
+       <img src=${iconUrl} alt="weather"></img>
+       <p id="weather-temp">${Math.round(data.main.temp)}&deg;F</p>
+       </div>
+       <p id="weather-city">${data.name}</p>
+       
       `;
     })
     .catch((err) => {
