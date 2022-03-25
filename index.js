@@ -15,8 +15,7 @@ fetch(
 fetch("https://api.coingecko.com/api/v3/coins/dogecoin")
   .then((res) => {
     if (!res.ok) {
-      // notify content not available in crypto
-      throw Error("Something went wrong");
+      throw Error("crypto fetch error");
     }
     console.log(res.status);
     return res.json();
@@ -32,7 +31,11 @@ fetch("https://api.coingecko.com/api/v3/coins/dogecoin")
     <p>👇: ${data.market_data.low_24h.usd}</p>
     `;
   })
-  .catch((err) => console.error(err));
+  .catch((err) => {
+    document.getElementById("crypto-top").innerHTML = `
+    Crypto data not available`;
+    console.error(err);
+  });
 
 const getCurrentTime = () => {
   const time = new Date();
@@ -45,3 +48,34 @@ const getCurrentTime = () => {
 };
 
 setInterval(getCurrentTime, 1000);
+
+navigator.geolocation.getCurrentPosition((position) => {
+  const p = position;
+  console.log(p);
+  fetch(
+    `https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${p.coords.latitude}&lon=${p.coords.longitude}&units=imperial`
+  )
+    .then((res) => {
+      if (!res.ok) {
+        throw Error("Weather data not available");
+      }
+      return res.json();
+    })
+    .then((data) => {
+      const localWeather = data;
+      console.log(localWeather);
+      const wIcon = localWeather.weather[0].icon;
+      console.log(wIcon);
+      document.getElementById("weather").innerHTML = `
+      <img src="http://openweathermap.org/img/wn/${wIcon}@2x.png" alt="weather"></img>
+       <p id="local-place">${localWeather.name}</p>
+       <p id="temperature">${Math.round(localWeather.main.temp)}&deg;F</p>
+      `;
+    })
+    .catch((err) => {
+      document.getElementById("weather").innerHTML = `
+        Weather Data Not Available
+      `;
+      console.log(err);
+    });
+});
