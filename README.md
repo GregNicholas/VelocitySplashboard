@@ -5,6 +5,11 @@ Currently shows local weather, time, a cryptocurrency, and a random space
 background from unsplash, including author.
 </p>
 
+## Screenshots
+
+![Home Page](./VelocitySplashboard.png
+)
+
 
 ## Author
 

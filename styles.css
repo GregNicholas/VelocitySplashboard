@@ -83,3 +83,7 @@ main {
   margin-left: -5px;
   margin-bottom: -5px;
 }
+
+#bg-author {
+  font-size: 1rem;
+}
