@@ -93,6 +93,7 @@ main {
   display: flex;
   flex-direction: row;
   margin: 0 auto;
+  font-size: 1rem;
 }
 
 .generator {
@@ -107,6 +108,7 @@ main {
 
 .title {
   margin: .5rem 0;
+  font-size: 1.3rem;
 }
 
 #activity, #quote, #quote-author {
@@ -128,9 +130,10 @@ main {
 .activity-button, .quote-button {
   height: 80px;
   width: 80px;
+  box-shadow: 0 0 10px silver;
   border-radius: 50%;
   cursor: pointer;
-  transition: all .25s ease, background-color 1s ease;
+  transition: all 1s ease, height .25s ease, width .25s ease, margin .25s ease;
 }
 
 .activity-button {
@@ -141,6 +144,7 @@ main {
 .activity-button:hover {
   background-color: blueviolet;
   border: 1px solid blueviolet;
+  box-shadow: none;
 }
 
 .quote-button {
@@ -150,6 +154,7 @@ main {
 .quote-button:hover {
   background-color: red;
   border: 1px solid red;
+  box-shadow: none;
 }
 
 .button-shrink {
