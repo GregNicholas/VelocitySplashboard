@@ -1,3 +1,6 @@
+const activityButton = document.querySelector(".activity-button")
+const quoteButton = document.querySelector(".quote-button")
+
 fetch(
   "https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=space"
 )
@@ -12,7 +15,7 @@ fetch(
     document.body.style.backgroundImage = `url(https://images.unsplash.com/photo-1544084944-15269ec7b5a0?crop=entropy&cs=srgb&fm=jpg&ixid=MnwxNDI0NzB8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NDgwOTk4Nzg&ixlib=rb-1.2.1&q=85)`;
   });
 
-fetch("https://api.coingecko.com/api/v3/coins/dogecoin")
+fetch("https://api.coingecko.com/api/v3/coins/shiba-inu")
   .then((res) => {
     if (!res.ok) {
       throw Error("crypto fetch error");
@@ -80,3 +83,37 @@ navigator.geolocation.getCurrentPosition((position) => {
       console.log(err);
     });
 });
+
+activityButton.addEventListener("click", () => {
+  activityButton.classList.add("button-shrink")
+  const activity = document.getElementById("activity")
+  activity.textContent = "thinking..."
+  setTimeout(() => {
+    activityButton.classList.remove("button-shrink")
+  },250)
+  fetch("https://apis.scrimba.com/bored/api/activity")
+    .then(response => response.json())
+    .then(data => {
+      setTimeout(() => {
+        activity.textContent = data.activity
+      },250)
+    })
+})
+
+quoteButton.addEventListener("click", () => {
+  quoteButton.classList.add("button-shrink")
+  const quote = document.getElementById("quote")
+  quote.innerHTML = "searching..."
+  setTimeout(() => {
+    quoteButton.classList.remove("button-shrink")
+  },250)
+  fetch("https://programming-quotes-api.herokuapp.com/Quotes/random")
+    .then(response => response.json())
+    .then(data => {
+      const display = `<h4 id="quote-content">"${data.en}"</h4>
+                       <p id="quote-author">~${data.author}</p>`
+      setTimeout(() => {
+        quote.innerHTML = display
+      },250)
+    })
+})
